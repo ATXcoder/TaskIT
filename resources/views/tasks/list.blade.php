@@ -29,7 +29,7 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<a style="color: #FFFFFF; text-decoration: none;" href="/taskit/task/task/{{$task->id}}">
+						<a style="color: #FFFFFF; text-decoration: none;" href="/taskit/task/{{$task->id}}">
 						<i class="fa fa-tasks "></i> {{ $task->title }}
 						</a>
 					</div>

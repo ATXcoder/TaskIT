@@ -30,10 +30,9 @@ Route::get('dashboard', ['as'=>'dashboard','uses'=>'DashboardController@dashboar
 Route::get('task', 'TaskController@index');
 Route::get('task/add','TaskController@create');
 Route::post('task/add','TaskController@store');
-//Route::get('task/today','TaskController@today');
-//Route::get('task/tomorrow','TaskController@tomorrow');
 Route::get('task/filter/{filter}','TaskController@filter');
 Route::get('task/{id}','TaskController@getTask');
+
 
 
 /*
@@ -47,8 +46,9 @@ Route::post('context/add', 'ContextController@store');
 /*
  * Project
  */
- Route::get('project', 'ProjectController@index');
- Route::get('project/{project}', 'ProjectController@show');
+Route::get('project', 'ProjectController@index');
+Route::get('project/add','ProjectController@add');
+Route::get('project/{project}', 'ProjectController@show');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

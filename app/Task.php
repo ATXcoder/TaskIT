@@ -29,7 +29,13 @@ class Task extends Model {
 		$task = Task::where('assignee_id', '=', $userID)->count();
 		return $task;
 	}
-	
+
+    public static function getTask($id, $userID)
+    {
+        $task = Task::whereraw('assignee_id = ? and id = ?',[$userID, $id])->get();
+        return $task;
+    }
+
 	public static function getTodaysTasks($userID)
 	{
 		$today = new \Moment\Moment('today', 'CST');
@@ -71,5 +77,14 @@ class Task extends Model {
 		$task = Task::whereRaw('assignee_id = ? and context_id = ?',[$userID, $context])->get();
 		return $task;
 	}
-	
+
+    public static function getScheduledTasks($userID)
+    {
+        $today = new \Moment\Moment('yesterday', 'CST');
+        $today->setTimezone('UTC')->format('Y-m-d');
+
+        $task = Task::whereRaw('assignee_id = ? and due_date > ?',[$userID, $today->format('Y-m-d')])->get();
+        return $task;
+    }
+
 }

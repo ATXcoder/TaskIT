@@ -135,23 +135,6 @@ class TaskController extends Controller {
 		
 		return view ('tasks\create', $info);
 	}
-	
-	public function today()
-	{
-		$userID = Auth::user()->id;
-		$task = Task::getTodaysTasks($userID);
-		
-		$sb = new \App\Repositories\SideBarData();
-		$data = $sb::getAll();
-		
-		$info = [
-		'tasks' => $task,
-		'contexts'=>$data['contexts'],
-		'projects'=>$data['projects'],
-		'tags'=>$data['tags']];
-		
-		return view('tasks\list',$info);
-	}
 
 	public function filter($filter)
 	{
@@ -159,10 +142,16 @@ class TaskController extends Controller {
 
         switch($filter)
         {
+            case 'today':
+                $task = Task::getTodaysTasks($userID);
+                break;
             case 'tomorrow':
                 $task = Task::getTomorrowsTasks($userID);
-
                 break;
+            case 'scheduled':
+                $task = Task::getScheduledTasks($userID);
+                break;
+            // By default we just grab tasks due today
             default:
                 $task = Task::getTodaysTasks($userID);
                 break;
@@ -180,4 +169,23 @@ class TaskController extends Controller {
 		
 		return view('tasks\list',$info);
 	}
+
+    public function getTask($taskID)
+    {
+        $userID = Auth::user()->id;
+        $task = Task::getTask($taskID,$userID);
+
+        $sb = new \App\Repositories\SideBarData();
+        $data = $sb::getAll();
+
+        $info = [
+            'tasks' => $task,
+            'contexts'=>$data['contexts'],
+            'projects'=>$data['projects'],
+            'tags'=>$data['tags']];
+
+        return view('tasks\list',$info);
+
+    }
+
 }
