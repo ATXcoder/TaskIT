@@ -86,7 +86,8 @@ class Task extends Model {
         $today = new \Moment\Moment('yesterday', 'CST');
         $today->setTimezone('UTC')->format('Y-m-d');
 
-        $task = Task::whereRaw('assignee_id = ? and due_date > ?',[$userID, $today->format('Y-m-d')])->get();
+        //Show me all tasks that have not been completed and have a scheduled due date
+        $task = Task::whereRaw('assignee_id = ? and complete = 0 and due_date IS NOT NULL',[$userID])->get();
         return $task;
     }
 

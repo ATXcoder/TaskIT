@@ -104,9 +104,7 @@ class TaskController extends Controller {
 		$input = Request::all();
 				
 		$due = $input['due_date'];
-		
-		$m = new \Moment\Moment($due, 'CST');
-	    $m->setTimezone('UTC')->format('Y-m-d');
+
 
 		$task = new Task();
 		$task->title = $input['title'];
@@ -115,7 +113,18 @@ class TaskController extends Controller {
 		$task->task_location = 'Inbox';
 		$task->assignee_id = Auth::user()->id;
 		$task->created_by = Auth::user()->id;
-		$task->due_date = $m->format('Y-m-d');
+
+        if(is_null($due))
+        {
+            $m = new \Moment\Moment($due, 'CST');
+            $m->setTimezone('UTC')->format('Y-m-d');
+            $task->due_date = $m->format('Y-m-d');
+        }
+        else
+        {
+            //No date defined, do nothing
+        }
+
 		$task->save();
 		
 		// Refresh view
