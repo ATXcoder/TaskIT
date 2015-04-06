@@ -19,9 +19,7 @@ class Task extends Model {
 	protected $hidden = ['id'];
 	
 	protected $primaryKey = 'id';
-	
-	
-	
+
 	
 	public static function taskCount($userID)
 	{
@@ -53,6 +51,11 @@ class Task extends Model {
 		$task = Task::whereRaw('assignee_id = ? and due_date = ?',[$userID, $today->format('Y-m-d')])->get();
 		return $task;
 	}
+
+    public  static function getAllUserTasks($userID)
+    {
+
+    }
 	
 	public static function getUserTasks($userID, $location)
 	{

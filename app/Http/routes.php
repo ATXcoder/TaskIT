@@ -50,6 +50,19 @@ Route::get('project', 'ProjectController@index');
 Route::get('project/add','ProjectController@add');
 Route::get('project/{project}', 'ProjectController@show');
 
+
+/*
+ * API v1
+ */
+Route::group(['prefix' => 'api/v1', 'middleware'=>'apiauth'], function()
+{
+    Route::get('/task', function(){
+        return ("Works");
+    });
+});
+
+
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

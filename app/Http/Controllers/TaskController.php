@@ -184,7 +184,7 @@ class TaskController extends Controller {
             'projects'=>$data['projects'],
             'tags'=>$data['tags']];
 
-        return view('tasks\list',$info);
+        return view('tasks\details',$info);
 
     }
 

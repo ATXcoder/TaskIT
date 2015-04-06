@@ -10,7 +10,6 @@ use App\Task;
 use App\Context;
 use App\Project;
 
-
 class ProjectController extends Controller {
 	
 	/**
@@ -91,7 +90,7 @@ class ProjectController extends Controller {
 		'projects'=>$data['projects'],
 		'tags'=>$data['tags']];
 		
-		return view('tasks\list',$info);
+		return view('projects\tasks',$info);
 		
 	}
 
