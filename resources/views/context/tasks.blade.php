@@ -29,7 +29,16 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <a style="color: #FFFFFF; text-decoration: none;" href="/taskit/task/{{$task->id}}">
-                                    <i class="fa fa-tasks "></i> {{ $task->title }}
+                                    @if($task->complete == 0)
+                                        <i class="fa fa-tasks "></i> {{ $task->title }}
+                                    @else
+                                        <span class="fa-stack ">
+                                    <i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
+                                     <i class="fa fa-check fa-stack-1x" style="color: white;"></i>
+                                </span>
+                                        {{ $task->title }}
+                                    @endif
+
                                 </a>
                             </div>
                         </div>
