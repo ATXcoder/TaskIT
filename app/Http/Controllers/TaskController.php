@@ -124,7 +124,7 @@ class TaskController extends Controller {
 		$task->assignee_id = Auth::user()->id;
 		$task->created_by = Auth::user()->id;
 
-        if(is_null($due))
+        if(!is_null($due))
         {
             $m = new \Moment\Moment($due, 'CST');
             $m->setTimezone('UTC')->format('Y-m-d');
@@ -196,12 +196,16 @@ class TaskController extends Controller {
      */
     public function getTask($taskID)
     {
+        // Get logged in user's ID
         $userID = Auth::user()->id;
+        // Get the task with the ID supplied and that belongs to the user
         $task = Task::getTask($taskID,$userID);
 
+        // Get sidebar data
         $sb = new \App\Repositories\SideBarData();
         $data = $sb::getAll();
 
+        // Create a array called $info and populate it
         $info = [
             'tasks' => $task,
             'contexts'=>$data['contexts'],
@@ -212,8 +216,76 @@ class TaskController extends Controller {
 
     }
 
-    public function testMessage()
+    public function editTask($taskID)
     {
+        // Get logged in user's ID
+        $userID = Auth::user()->id;
 
+        // Get the task with the ID supplied and that belongs to the user
+        $task = Task::getTask($taskID,$userID);
+
+        // Get Project List for drop-down
+        $project_list = Project::getProjectList(Auth::user()->id);
+
+        // Get sidebar data
+        $sb = new \App\Repositories\SideBarData();
+        $data = $sb::getAll();
+
+        // Create a array called $info and populate it
+        $info = [
+            'tasks' => $task,
+            'contexts'=>$data['contexts'],
+            'projects'=>$data['projects'],
+            'project_list'=>$project_list,
+            'tags'=>$data['tags']];
+
+        return view('tasks\edit',$info);
+    }
+
+    public function updateTask($taskID)
+    {
+        $input = Request::all();
+
+        $task = Task::find($taskID);
+
+        $due = $input['due_date'];
+
+        $task->title = $input['title'];
+        $task->description = $input['description'];
+        $task->project_id = $input['project_id'];
+        $task->task_location = 'Inbox';
+        $task->assignee_id = Auth::user()->id;
+        $task->created_by = Auth::user()->id;
+        var_dump($due);
+
+        if(!is_null($due))
+        {
+            $m = new \Moment\Moment($due, 'CST');
+            $m->setTimezone('UTC')->format('Y-m-d');
+            $task->due_date = $m->format('Y-m-d');
+        }
+        else
+        {
+            //No date defined, do nothing
+        }
+
+        $task->save();
+
+        // Refresh view
+        // Get contexts, projects, etc
+        $sb = new \App\Repositories\SideBarData();
+        $data = $sb::getAll();
+
+        // Get Project List, Context List, etc
+        $project_list = Project::getProjectList(Auth::user()->id);
+
+        $info = [
+            'contexts'=>$data['contexts'],
+            'projects'=>$data['projects'],
+            'tags'=>$data['tags'],
+            'project_list'=>$project_list,
+            'info'=>"Task '".$task->title."' has been updated"];
+
+        return view ('tasks\details', $info);
     }
 }

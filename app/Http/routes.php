@@ -31,6 +31,8 @@ Route::get('task', 'TaskController@index');
 Route::get('task/add','TaskController@create');
 Route::post('task/add','TaskController@store');
 Route::get('task/filter/{filter}','TaskController@filter');
+Route::get('task/edit/{id}','TaskController@editTask');
+Route::post('task/update/{id}','TaskController@updateTask');
 Route::get('task/{id}','TaskController@getTask');
 
 

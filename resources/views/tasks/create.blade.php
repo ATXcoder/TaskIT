@@ -22,7 +22,7 @@
 			{!! Form::open(array('url'=>'/task/add')) !!}
 			<div class="form-group col-md-7">
 				{!! Form::label('title', 'Title') !!}
-				{!! Form::text('title', null, ['class'=>'form-control']) !!}
+                {!! Form::text('title', null, ['class'=>'form-control']) !!}
 				<br/>
 				{!! Form::label('description', 'Description') !!}
 				{!! Form::textarea('description', null, ['class'=>'form-control']) !!}

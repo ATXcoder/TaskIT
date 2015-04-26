@@ -1,6 +1,8 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 use Moment;
 
@@ -30,7 +32,14 @@ class Task extends Model {
 
     public static function getTask($id, $userID)
     {
-        $task = Task::whereraw('assignee_id = ? and id = ?',[$userID, $id])->get();
+        $query = "SELECT task.id, task.title, task.due_date, task.description, task.task_location, context.title as 'context', project.title AS 'project'".
+            " FROM task".
+            " LEFT JOIN context ON task.context_id = context.id".
+            " LEFT JOIN project ON task.project_id = project.id".
+            " WHERE assignee_id = $userID and task.id = $id";
+
+        $task = DB::select($query);
+        //$task = Task::whereraw('assignee_id = ? and id = ?',[$userID, $id])->get();
         return $task;
     }
 
