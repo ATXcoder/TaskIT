@@ -77,8 +77,13 @@ class TaskController extends Controller {
 		
 		return view('tasks\list',$info);
 	}
-	
-	public function create()
+
+
+    /**
+     * Show the create a task view
+     * @return \Illuminate\View\View
+     */
+    public function create()
 	{
 		
 		// Get contexts, projects, etc for sidebar
@@ -98,8 +103,13 @@ class TaskController extends Controller {
 		
 		return view('tasks\create', $info);
 	}
-	
-	public function store()
+
+
+    /**
+     * Save a task
+     * @return \Illuminate\View\View
+     */
+    public function store()
 	{
 		$input = Request::all();
 				
@@ -179,6 +189,11 @@ class TaskController extends Controller {
 		return view('tasks\list',$info);
 	}
 
+    /**
+     * Return a specific task
+     * @param $taskID
+     * @return \Illuminate\View\View
+     */
     public function getTask($taskID)
     {
         $userID = Auth::user()->id;
@@ -197,4 +212,8 @@ class TaskController extends Controller {
 
     }
 
+    public function testMessage()
+    {
+
+    }
 }

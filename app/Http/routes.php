@@ -59,6 +59,8 @@ Route::group(['prefix' => 'api/v1', 'middleware'=>'apiauth'], function()
     Route::get('/task', function(){
         return ("Works");
     });
+
+    Route::post('/message', 'TaskController@testMessage');
 });
 
 

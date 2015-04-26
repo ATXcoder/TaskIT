@@ -147,6 +147,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+        /*
+         * GCM
+         */
+        'Witty\LaravelPushNotification\PushNotificationServiceProvider',
+
 	],
 
 	/*
@@ -197,6 +202,8 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
 		'Moment'	=> 'fightbulc\moment\src\Moment',
+        'PushNotification'      => 'Witty\LaravelPushNotification\PushNotification',
+
 
 	],
 
