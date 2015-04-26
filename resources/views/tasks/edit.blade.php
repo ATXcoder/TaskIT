@@ -12,6 +12,13 @@
             $(".nav ul").removeClass("in");
         });
     </script>
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
 @stop
 
 @section('content')
@@ -35,7 +42,11 @@
                                 <i class="fa fa-calendar"></i><b> Due Date</b>
                             </div>
                             <div class="col-md-3">
+                                <div class='input-group date' id='datetimepicker1'>
                                 {!! Form::text('due_date', $task->due_date, ['class'=>'form-control']) !!}
+                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                 </span>
+                                    </div>
                             </div>
                         </div>
 
