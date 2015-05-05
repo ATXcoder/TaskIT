@@ -52,7 +52,7 @@ class TaskController extends Controller {
 		$data = $sb::getAll();
 		
 		// Return view
-		return view('tasks\list',['tasks' => $task, 'contexts'=>$data['contexts'],'projects'=>$data['projects'],'tags'=>$data['tags']]);
+		return view('tasks/list',['tasks' => $task, 'contexts'=>$data['contexts'],'projects'=>$data['projects'],'tags'=>$data['tags']]);
 	}
 	
 	/**
@@ -75,7 +75,7 @@ class TaskController extends Controller {
 		'projects'=>$data['projects'],
 		'tags'=>$data['tags']];
 		
-		return view('tasks\list',$info);
+		return view('tasks/list',$info);
 	}
 
 
@@ -101,7 +101,7 @@ class TaskController extends Controller {
 		'project_list'=>$project_list,
 		'info'=>null];
 		
-		return view('tasks\create', $info);
+		return view('tasks/create', $info);
 	}
 
 
