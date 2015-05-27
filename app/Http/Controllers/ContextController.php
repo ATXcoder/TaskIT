@@ -63,7 +63,7 @@ class ContextController extends Controller {
 		'projects'=>$data['projects'],
 		'tags'=>$data['tags']];
 		
-		return view('context\tasks',$info);
+		return view('context/tasks',$info);
 	}
 	
 	public function add()
@@ -81,7 +81,7 @@ class ContextController extends Controller {
             'projects'=>$data['projects'],
             'tags'=>$data['tags']];
 
-       return view('context\add',$info);
+       return view('context/add',$info);
 	}
 	
 	public function store()	

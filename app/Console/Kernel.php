@@ -22,8 +22,16 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
+        /*
 		$schedule->command('inspire')
 				 ->hourly();
+
+        $schedule->exec('logger LARAVEL TEST');
+        */
+
+
+        // Check for new device GCM ID's and send welcome note
+
 	}
 
 }

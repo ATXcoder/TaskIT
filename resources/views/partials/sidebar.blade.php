@@ -82,32 +82,32 @@
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
 				<li id="nav-dashbboard">
-					<a href="/taskit/dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+					<a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
 				</li>
 				<li id='nav-tasks'>
 					<!-- TASKS -->
 					<a href="#"><i class="fa fa-tasks fa-fw"></i>Tasks<span class="fa arrow"></span></a>
 					<ul id='task-sub-level' class="nav nav-second-level collapse">
 						<li id="task-inbox">
-							<a href="/taskit/task/filter/inbox"><i class="fa fa-inbox"></i> Inbox</a>
+							<a href="/task/filter/inbox"><i class="fa fa-inbox"></i> Inbox</a>
 						</li>
 						<li>
-							<a href="/taskit/task/filter/next">Next</a>
+							<a href="/task/filter/next">Next</a>
 						</li>
 						<li>
-							<a href="/taskit/task/filter/today">Today</a>
+							<a href="/task/filter/today">Today</a>
 						</li>
 						<li>
-							<a href="/taskit/task/filter/tomorrow">Tomorrow</a>
+							<a href="/task/filter/tomorrow">Tomorrow</a>
 						</li>
 						<li>
-							<a href="/taskit/task/filter/scheduled"><i class="fa fa-calendar"></i> Scheduled</a>
+							<a href="/task/filter/scheduled"><i class="fa fa-calendar"></i> Scheduled</a>
 						</li>
 						<li>
-							<a href="/taskit/task/filter/waiting"><i class="fa fa-clock-o"></i> Waiting</a>
+							<a href="/task/filter/waiting"><i class="fa fa-clock-o"></i> Waiting</a>
 						</li>
 						<li>
-							<a href='/taskit/task/add'><i class='fa fa-plus'> Add Task</i></a>
+							<a href='/task/add'><i class='fa fa-plus'> Add Task</i></a>
 						</li>
 					</ul>
 					<!-- /.nav-second-level -->
@@ -118,11 +118,11 @@
 					<ul id='project-sub-level' class="nav nav-second-level collapse">
 						@foreach($projects as $project)
 						<li>
-							<a href="/taskit/project/{{ $project->title }}"><i class="fa fa-at"></i> {{ $project->title }}</a>
+							<a href="/project/{{ $project->title }}"><i class="fa fa-at"></i> {{ $project->title }}</a>
 						</li>
 						@endforeach
 						<li>
-							<a href='/taskit/project/add'><i class='fa fa-plus'> Add Project</i></a>
+							<a href='/project/add'><i class='fa fa-plus'> Add Project</i></a>
 						</li>
 					</ul>
 				</li>
@@ -132,11 +132,11 @@
 					<ul id='context-sub-level' class="nav nav-second-level collapse">
 						@foreach($contexts as $context)
 						<li>
-							<a href="/taskit/context/{{$context->title}}"><i class="fa fa-at"></i> {{ $context->title }}</a>
+							<a href="/context/{{$context->title}}"><i class="fa fa-at"></i> {{ $context->title }}</a>
 						</li>
 						@endforeach
 						<li>
-							<a href='/taskit/context/add'><i class='fa fa-plus'> Add Context</i></a>
+							<a href='/context/add'><i class='fa fa-plus'> Add Context</i></a>
 						</li>
 					</ul>
 				</li>
@@ -146,11 +146,11 @@
 					<ul class="nav nav-second-level collapse">
 						@foreach($tags as $tag)
 						<li>
-							<a href="/taskit/tag/{{ $tag->title }}"><i class="fa fa-at"></i> {{ $tag->title }}</a>
+							<a href="/tag/{{ $tag->title }}"><i class="fa fa-at"></i> {{ $tag->title }}</a>
 						</li>
 						@endforeach
 						<li>
-							<a href='/taskit/tag/add'><i class='fa fa-plus'> Add Tag</i></a>
+							<a href='/tag/add'><i class='fa fa-plus'> Add Tag</i></a>
 						</li>
 					</ul>
 				</li>

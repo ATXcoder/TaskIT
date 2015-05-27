@@ -152,7 +152,7 @@ class TaskController extends Controller {
 		'project_list'=>$project_list,
 		'info'=>"Task '".$task->title."' has been added"];
 		
-		return view ('tasks\create', $info);
+		return view ('tasks/create', $info);
 	}
 
 	public function filter($filter)
@@ -186,7 +186,7 @@ class TaskController extends Controller {
 		'projects'=>$data['projects'],
 		'tags'=>$data['tags']];
 		
-		return view('tasks\list',$info);
+		return view('tasks/list',$info);
 	}
 
     /**
@@ -212,7 +212,7 @@ class TaskController extends Controller {
             'projects'=>$data['projects'],
             'tags'=>$data['tags']];
 
-        return view('tasks\details',$info);
+        return view('tasks/details',$info);
 
     }
 
@@ -239,7 +239,7 @@ class TaskController extends Controller {
             'project_list'=>$project_list,
             'tags'=>$data['tags']];
 
-        return view('tasks\edit',$info);
+        return view('tasks/edit',$info);
     }
 
     public function updateTask($taskID)
@@ -286,6 +286,6 @@ class TaskController extends Controller {
             'project_list'=>$project_list,
             'info'=>"Task '".$task->title."' has been updated"];
 
-        return view ('tasks\details', $info);
+        return view ('tasks/details', $info);
     }
 }

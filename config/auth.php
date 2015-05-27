@@ -64,4 +64,9 @@ return [
 		'expire' => 60,
 	],
 
+    /*
+     * Routes that can't have CSRF checking
+     */
+    'no_csrf' => array('api/v1/test/message/hello'),
+
 ];

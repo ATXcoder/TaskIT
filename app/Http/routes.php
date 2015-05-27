@@ -19,7 +19,8 @@ Route::get('/signin', function()
 });
 
 Route::get('/user/new',function(){
-    return view('auth/register');
+    //return view('auth/register');
+    return "Currently not accepting new users";
 });
 
 Route::get('dashboard', ['as'=>'dashboard','uses'=>'DashboardController@dashboard']);
@@ -62,7 +63,10 @@ Route::group(['prefix' => 'api/v1', 'middleware'=>'apiauth'], function()
         return ("Works");
     });
 
-    Route::post('/message', 'TaskController@testMessage');
+    Route::post('/test/message/{msg}', 'ApiTaskController@postTest');
+
+    // Register new Android Device for GCM
+    Route::post('/device/add/{id}', 'DeviceController@add');
 });
 
 

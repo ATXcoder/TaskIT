@@ -29,7 +29,7 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<a style="color: #FFFFFF; text-decoration: none;" href="/taskit/task/{{$task->id}}">
+						<a style="color: #FFFFFF; text-decoration: none;" href="/task/{{$task->id}}">
                         @if($task->complete == 0)
                                 <i class="fa fa-tasks "></i> {{ $task->title }}
                             @else
