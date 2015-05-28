@@ -22,10 +22,10 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a style="color: #FFFFFF; text-decoration: none;" href="/taskit/task/{{$task->id}}">
+                                <a style="color: #FFFFFF; text-decoration: none;" href="/task/{{$task->id}}">
                                     <i class="fa fa-tasks "></i> {{ $task->title }}
                                 </a>
-                                <a style="margin-left: 6px; color: #FFFFFF; text-decoration: none;" href="/taskit/task/edit/{{$task->id}}">
+                                <a style="margin-left: 6px; color: #FFFFFF; text-decoration: none;" href="/task/edit/{{$task->id}}">
                                     <i class="fa fa-lg fa-pencil"></i>
                                     </a>
                             </div>

@@ -5,6 +5,7 @@ use App\User;
 use App\Context;
 use App\Project;
 use App\Tag;
+use App\Repositories;
 use Auth; //Needed for access to Authenticated user info
 use Input;
 use Request;
@@ -228,7 +229,7 @@ class TaskController extends Controller {
         $project_list = Project::getProjectList(Auth::user()->id);
 
         // Get sidebar data
-        $sb = new \App\Repositories\SideBarData();
+        $sb = new Repositories\SideBarData();
         $data = $sb::getAll();
 
         // Create a array called $info and populate it
@@ -256,7 +257,6 @@ class TaskController extends Controller {
         $task->task_location = 'Inbox';
         $task->assignee_id = Auth::user()->id;
         $task->created_by = Auth::user()->id;
-        var_dump($due);
 
         if(!is_null($due))
         {
@@ -273,13 +273,17 @@ class TaskController extends Controller {
 
         // Refresh view
         // Get contexts, projects, etc
-        $sb = new \App\Repositories\SideBarData();
+        $sb = new Repositories\SideBarData();
         $data = $sb::getAll();
+
+        // Get the task with the ID supplied and that belongs to the user
+        $task = Task::getTask($taskID,Auth::user()->id);
 
         // Get Project List, Context List, etc
         $project_list = Project::getProjectList(Auth::user()->id);
 
         $info = [
+            'tasks' => $task,
             'contexts'=>$data['contexts'],
             'projects'=>$data['projects'],
             'tags'=>$data['tags'],
