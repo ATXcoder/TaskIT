@@ -1,10 +1,12 @@
 @extends('app')
 
 @section('banner')
+    @if($lateTasks > 0)
 <div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <i class="fa fa-bell"></i> You have <strong>OVERDUE</strong> tasks.
+  <i class="fa fa-bell"></i> You have <strong>{{ $lateTasks }} OVERDUE</strong> tasks.
 </div>
+    @endif
 @endsection
 
 @section('scripts')

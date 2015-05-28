@@ -30,6 +30,20 @@ class Task extends Model {
 		return $task;
 	}
 
+    /**
+     * Get overdue tasks for the user
+     * @param $userID
+     * @return mixed
+     */
+    public static function getOverDueTasks($userID){
+        // Today
+        $yesterday = new \Moment\Moment('yesterday', 'CST');
+        $yesterday->setTimezone('UTC')->format('Y-m-d');
+
+        $task = Task::whereRaw('assignee_id = ? and due_date <= ? and complete = 0',[$userID, $yesterday->format('Y-m-d')])->count();
+        return $task;
+    }
+
     public static function getTask($id, $userID)
     {
         $query = "SELECT task.id, task.title, task.due_date, task.description, task.task_location, context.title as 'context', project.title AS 'project'".

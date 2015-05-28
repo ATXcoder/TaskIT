@@ -12,6 +12,12 @@
             $(".nav ul").removeClass("in");
         });
     </script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @stop
 
 @section('content')
@@ -25,7 +31,7 @@
                                 <a style="color: #FFFFFF; text-decoration: none;" href="/task/{{$task->id}}">
                                     <i class="fa fa-tasks "></i> {{ $task->title }}
                                 </a>
-                                <a style="margin-left: 6px; color: #FFFFFF; text-decoration: none;" href="/task/edit/{{$task->id}}">
+                                <a style="margin-left: 6px; color: #FFFFFF; text-decoration: none;" data-toggle="tooltip" title="Edit Tasks" href="/task/edit/{{$task->id}}">
                                     <i class="fa fa-lg fa-pencil"></i>
                                     </a>
                             </div>
