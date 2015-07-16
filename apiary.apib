@@ -1,0 +1,69 @@
+FORMAT: 1A
+
+# TaskIT
+TaskIT API is a service that allows you to create tasks following the Getting Things Done (GTD) philosoph.
+
+
+## Task Collection [/task]
+### List all Task [GET]
++ Response 200 (application/json)
+
+        [{
+          "id": 1, 
+          "title": "Fax report with coversheet",
+          "project": "TPS Reports",
+          "context": "work",
+          "due_date": 2015-03-01
+        }, {
+          "id": 2, 
+          "title": "Find new job",
+          "project": "Better Life",
+          "context": "work",
+          "due_date": 2015-03-02
+        }]
+
+### Create a Task [POST]
+
+The following attributes can be set for any task when creating it
+
++ `title` (required, string) - The name of the task
++ `description` (optional, string) - A description of the task
++ `due_date` (optional, string) - Date the task is due on, in the format YYYY-MM-DD
++ `context` (optional, string) - The context of the task
++ `project` (optional, string) - The project which the task belongs to
++ `tag` (optional, string array) - Tag for the project
+
++ Request (application/json)
+
+        { 
+          "title": "Change oil in car",
+          "description": "Don't forget to change the oil in the car",
+          "due_date": "2015-03-01",
+          "context": "home",
+          "project": "Vehicle Maintenance",
+          "tag":["car","maintenance"]
+        }
+
++ Response 201 (application/json)
+
+        { "id": 3, "title": "Change oil in car" }
+
+## Task [/task/{id}]
+A single Task object with all its details
+
++ Parameters
+    + id (required, number, `3`) ... Numeric `ID` of the Task to perform action with.
+
+### Retrieve a Task [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            { "id": 3, "title": "Change oil in car" }
+
+### Remove a Task [DELETE]
++ Response 204
