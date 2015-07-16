@@ -1,16 +1,17 @@
 <?php namespace App\Http\Controllers;
 
 use App\Task;
-use App\User;
-use App\Context;
+//use App\User;
+//use App\Context;
 use App\Project;
-use App\Tag;
+//use App\Tag;
 use App\Repositories;
 use Auth; //Needed for access to Authenticated user info
 use Input;
 use Request;
 use Moment;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\RedirectResponse;
+//use Illuminate\Contracts\Auth\Authenticatable;
 
 class TaskController extends Controller {
 
@@ -217,6 +218,7 @@ class TaskController extends Controller {
 
     }
 
+    /** Get a task for editing */
     public function editTask($taskID)
     {
         // Get logged in user's ID
@@ -243,14 +245,19 @@ class TaskController extends Controller {
         return view('tasks/edit',$info);
     }
 
+    /** Update a task */
     public function updateTask($taskID)
     {
         $input = Request::all();
 
+        // Grab the tasks
         $task = Task::find($taskID);
 
+        // Get the due date
         $due = $input['due_date'];
 
+
+        // Get additional Task information from form
         $task->title = $input['title'];
         $task->description = $input['description'];
         $task->project_id = $input['project_id'];
@@ -258,15 +265,21 @@ class TaskController extends Controller {
         $task->assignee_id = Auth::user()->id;
         $task->created_by = Auth::user()->id;
 
-        if(!is_null($due))
+        if(empty($due))
         {
-            $m = new \Moment\Moment($due, 'CST');
-            $m->setTimezone('UTC')->format('Y-m-d');
-            $task->due_date = $m->format('Y-m-d');
+            $task->due_date = "";
+            $test = "NOT-EMPTY";
+            dump($test);
         }
         else
         {
-            //No date defined, do nothing
+            //No date defined, erase one if there
+            $test = "EMPTY";
+            dump($test);
+            // Set new due date
+            $m = new \Moment\Moment($due, 'CST');
+            $m->setTimezone('UTC')->format('Y-m-d');
+            $task->due_date = $m->format('Y-m-d');
         }
 
         $task->save();
@@ -277,13 +290,13 @@ class TaskController extends Controller {
         $data = $sb::getAll();
 
         // Get the task with the ID supplied and that belongs to the user
-        $task = Task::getTask($taskID,Auth::user()->id);
+        $updatedTask = Task::getTask($taskID,Auth::user()->id);
 
         // Get Project List, Context List, etc
         $project_list = Project::getProjectList(Auth::user()->id);
 
         $info = [
-            'tasks' => $task,
+            'tasks' => $updatedTask,
             'contexts'=>$data['contexts'],
             'projects'=>$data['projects'],
             'tags'=>$data['tags'],
@@ -291,5 +304,63 @@ class TaskController extends Controller {
             'info'=>"Task '".$task->title."' has been updated"];
 
         return view ('tasks/details', $info);
+    }
+
+    public function overdueTasks(){
+        // Get logged in user's ID
+        $userID = Auth::user()->id;
+
+        $task = Task::getOverDueTasks($userID);
+
+        // Get sidebar data
+        $sb = new \App\Repositories\SideBarData();
+        $data = $sb::getAll();
+
+        // Create a array called $info and populate it
+        $info = [
+            'tasks' => $task,
+            'contexts'=>$data['contexts'],
+            'projects'=>$data['projects'],
+            'tags'=>$data['tags']];
+
+        return view('tasks/details',$info);
+    }
+
+    /** Complete tasks */
+    public function completeTask($taskID)
+    {
+        // Get logged in user's ID
+        $userID = Auth::user()->id;
+
+        // Get the task with the ID supplied and that belongs to the user
+        $auth = Task::getTask($taskID,$userID);
+        if(sizeof($auth) != 0)
+        {
+            //We got a task with that ID and user ID back
+            $task = Task::find($taskID);
+            $task->complete = 1;
+            $task->save();
+            return redirect()->back();
+        } else{
+            return ("Task not found");
+        }
+    }
+
+    public function deleteTask($taskID)
+    {
+        // Get logged in user's ID
+        $userID = Auth::user()->id;
+
+        // Get the task with the ID supplied and that belongs to the user
+        $auth = Task::getTask($taskID,$userID);
+        if(sizeof($auth) != 0)
+        {
+            //We got a task with that ID and user ID back
+            $task = Task::find($taskID);
+            $task->delete();
+            return redirect()->back();
+        } else{
+            return ("Task not found");
+        }
     }
 }

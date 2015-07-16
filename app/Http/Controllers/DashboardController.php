@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $tasks = Task::taskCount($userID);
 
         // Get count of all overdue user tasks
-        $lateTasks = Task::getOverDueTasks($userID);
+        $lateTasks = Task::getOverDueTasksCount($userID);
 
         // Get contexts, projects, etc
         $sb = new \App\Repositories\SideBarData();
