@@ -19,7 +19,8 @@ Route::get('/signin', function()
 });
 
 Route::get('/user/new',function(){
-    return view('auth/register');
+    //return view('auth/register');
+    return "Currently not accepting new users";
 });
 
 Route::get('dashboard', ['as'=>'dashboard','uses'=>'DashboardController@dashboard']);
@@ -31,6 +32,11 @@ Route::get('task', 'TaskController@index');
 Route::get('task/add','TaskController@create');
 Route::post('task/add','TaskController@store');
 Route::get('task/filter/{filter}','TaskController@filter');
+Route::get('task/overdue',['as' => 'overdueTasks', 'uses' => 'TaskController@overdueTasks']);
+Route::get('task/edit/{id}','TaskController@editTask');
+Route::post('task/update/{id}','TaskController@updateTask');
+Route::post('task/complete/{id}','TaskController@completeTask');
+Route::post('task/delete/{id}','TaskController@deleteTask');
 Route::get('task/{id}','TaskController@getTask');
 
 
@@ -60,7 +66,10 @@ Route::group(['prefix' => 'api/v1', 'middleware'=>'apiauth'], function()
         return ("Works");
     });
 
-    Route::post('/message', 'TaskController@testMessage');
+    Route::post('/test/message/{msg}', 'ApiTaskController@postTest');
+
+    // Register new Android Device for GCM
+    Route::post('/device/add/{id}', 'DeviceController@create');
 });
 
 

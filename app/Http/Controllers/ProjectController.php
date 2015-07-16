@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Repositories;
 
 use Illuminate\Http\Request;
 
@@ -35,9 +36,9 @@ class ProjectController extends Controller {
 	 */
 	public function index()
 	{
-		$sb = new \App\Repositories\SideBarData();
+		$sb = new SideBarData();
 		$data = $sb::getAll();
-		return view('projects\list',['contexts'=>$data['contexts'],'projects'=>$data['projects'], 'tags'=>$data['tags']]);
+		return view('projects/list',['contexts'=>$data['contexts'],'projects'=>$data['projects'], 'tags'=>$data['tags']]);
 	}
 
 	/**
@@ -90,7 +91,7 @@ class ProjectController extends Controller {
 		'projects'=>$data['projects'],
 		'tags'=>$data['tags']];
 		
-		return view('projects\tasks',$info);
+		return view('projects/tasks',$info);
 		
 	}
 

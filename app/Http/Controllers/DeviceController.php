@@ -3,12 +3,20 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
-use App\Task;
+use Witty\LaravelPushNotification\PushNotification;
 
 
-class ApiTaskController extends Controller {
+class DeviceController extends Controller {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -25,9 +33,12 @@ class ApiTaskController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($gcmID)
 	{
-		//
+		// For now just make GCM send a hello note
+        PushNotification::app('android')
+            ->to($gcmID)
+            ->send('Device registered with TaskIT for Push Notifications!');
 	}
 
 	/**
@@ -83,11 +94,5 @@ class ApiTaskController extends Controller {
 	{
 		//
 	}
-
-    public function postTest($msg)
-    {
-        $userID = Auth::user()->id;
-        return ("Hello $userID,  You typed: $msg");
-    }
 
 }

@@ -1,6 +1,8 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 use Moment;
 
@@ -28,9 +30,39 @@ class Task extends Model {
 		return $task;
 	}
 
+    /**
+     * Get overdue tasks for the user
+     * @param $userID
+     * @return mixed
+     */
+    public static function getOverDueTasks($userID){
+        // Today
+        $yesterday = new \Moment\Moment('yesterday', 'CST');
+        $yesterday->setTimezone('UTC')->format('Y-m-d');
+
+        $task = Task::whereRaw('assignee_id = ? and due_date <= ? and complete = 0',[$userID, $yesterday->format('Y-m-d')])->get();
+        return $task;
+    }
+
+    public static function getOverDueTasksCount($userID){
+        // Today
+        $yesterday = new \Moment\Moment('yesterday', 'CST');
+        $yesterday->setTimezone('UTC')->format('Y-m-d');
+
+        $task = Task::whereRaw('assignee_id = ? and due_date <= ? and complete = 0',[$userID, $yesterday->format('Y-m-d')])->count();
+        return $task;
+    }
+
     public static function getTask($id, $userID)
     {
-        $task = Task::whereraw('assignee_id = ? and id = ?',[$userID, $id])->get();
+        $query = "SELECT task.id, task.complete, task.title, task.due_date, task.description, task.task_location, context.title as 'context', project.title AS 'project'".
+            " FROM task".
+            " LEFT JOIN context ON task.context_id = context.id".
+            " LEFT JOIN project ON task.project_id = project.id".
+            " WHERE assignee_id = $userID and task.id = $id";
+
+        $task = DB::select($query);
+        //$task = Task::whereraw('assignee_id = ? and id = ?',[$userID, $id])->get();
         return $task;
     }
 
